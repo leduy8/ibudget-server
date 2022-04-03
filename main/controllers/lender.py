@@ -4,9 +4,9 @@ from main import app
 from main.commons.decorators import authenticate_user, pass_data
 from main.commons.exceptions import Forbidden, NotFound
 from main.engines import lender as lender_engine
+from main.schemas.base import PaginationSchema
 from main.schemas.dump.lender import DumpLenderSchema
 from main.schemas.load.lender import LoadLenderSchema
-from main.schemas.base import PaginationSchema
 
 
 @app.post("/lenders")
@@ -68,13 +68,13 @@ def update_lender_by_id(data, user, id):
 
 @app.delete("/lenders/<int:id>")
 @authenticate_user()
-def delete_lender_by_id(user_id, id):
+def delete_lender_by_id(user, id):
     lender = lender_engine.find_lender_by_id(id)
 
     if not lender:
         raise NotFound(error_message="Lender not found")
 
-    if lender.user_id != user_id:
+    if lender.user_id != user.id:
         raise Forbidden(
             error_message="User doesn't have permission to delete this lender"
         )

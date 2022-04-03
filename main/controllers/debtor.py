@@ -4,9 +4,9 @@ from main import app
 from main.commons.decorators import authenticate_user, pass_data
 from main.commons.exceptions import Forbidden, NotFound
 from main.engines import debtor as debtor_engine
+from main.schemas.base import PaginationSchema
 from main.schemas.dump.debtor import DumpDebtorSchema
 from main.schemas.load.debtor import LoadDebtorSchema
-from main.schemas.base import PaginationSchema
 
 
 @app.post("/debtors")
@@ -68,13 +68,13 @@ def update_debtor_by_id(data, user, id):
 
 @app.delete("/debtors/<int:id>")
 @authenticate_user()
-def delete_debtor_by_id(user_id, id):
+def delete_debtor_by_id(user, id):
     debtor = debtor_engine.find_debtor_by_id(id)
 
     if not debtor:
         raise NotFound(error_message="Debtor not found")
 
-    if debtor.user_id != user_id:
+    if debtor.user_id != user.id:
         raise Forbidden(
             error_message="User doesn't have permission to delete this debtor"
         )

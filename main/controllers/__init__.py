@@ -1,1 +1,1 @@
-from . import probe, auth, user, category, transaction, currency, debtor, lender
+from . import auth, category, currency, debtor, lender, probe, transaction, user, wallet

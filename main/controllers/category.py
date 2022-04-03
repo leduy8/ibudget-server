@@ -77,13 +77,13 @@ def update_category_by_id(data, user, id):
 
 @app.delete("/categories/<int:id>")
 @authenticate_user()
-def delete_category_by_id(user_id, id):
+def delete_category_by_id(user, id):
     category = category_engine.find_category_by_id(id)
 
     if not category:
         raise NotFound(error_message="Category not found")
 
-    if category.user_id != user_id:
+    if category.user_id != user.id:
         raise Forbidden(
             error_message="User doesn't have permission to delete this category"
         )

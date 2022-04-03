@@ -2,7 +2,7 @@ from flask import jsonify
 
 from main import app
 from main.commons.decorators import authenticate_user, pass_data
-from main.commons.exceptions import BadRequest, Forbidden, NotFound
+from main.commons.exceptions import Forbidden, NotFound
 from main.engines import transaction as transaction_engine
 from main.schemas.dump.transaction import DumpTransactionSchema
 from main.schemas.load.transaction import LoadTransactionSchema
@@ -70,13 +70,13 @@ def update_transaction_by_id(data, user, id):
 
 @app.delete("/transactions/<int:id>")
 @authenticate_user()
-def delete_transaction_by_id(user_id, id):
+def delete_transaction_by_id(user, id):
     transaction = transaction_engine.find_transaction_by_id(id)
 
     if not transaction:
         raise NotFound(error_message="Transaction not found")
 
-    if transaction.user_id != user_id:
+    if transaction.user_id != user.id:
         raise Forbidden(
             error_message="User doesn't have permission to delete this transaction"
         )
