@@ -13,8 +13,10 @@ from main.schemas.dump.user import DumpUserSchema
 @app.post("/users")
 @pass_data(LoadUserSchema)
 def register_user(data):
-    if user_engine.find_user_by_email(data["email"]):
-        raise BadRequest(error_message="Email is already registered")
+    if user_engine.find_user_by_username(data["username"]):
+        raise BadRequest(error_message="Username is already registered")
+
+    print("1")
 
     data["password_salt"] = gen_salt()
     data["password_hash"] = generate_password_hash(
