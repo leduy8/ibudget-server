@@ -29,7 +29,7 @@ def get_currencies(params: Dict) -> List[object]:
     return [currencies.items, currencies.total]
 
 
-def create_currency(data: Dict, user_id: int) -> CurrencyModel:
+def create_currency(data: Dict) -> CurrencyModel:
     currency = CurrencyModel(
         name=data["name"], abbreviation=data["abbreviation"])
 
