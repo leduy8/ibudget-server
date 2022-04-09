@@ -4,9 +4,19 @@ from main import app
 from main.commons.decorators import authenticate_user, pass_data
 from main.commons.exceptions import BadRequest, Forbidden, NotFound
 from main.engines import category as category_engine
+from main.models.category import CategoryModel
 from main.schemas.dump.category import DumpCategorySchema
 from main.schemas.load.category import LoadCategorySchema
 from main.schemas.paginate import CategoryPaginationSchema
+
+
+def get_category_data(category: CategoryModel):
+    return {
+        "name": category.name,
+        "user_id": category.user_id,
+        "created": category.created,
+        "updated": category.updated,
+    }
 
 
 @app.post("/categories")
@@ -22,7 +32,7 @@ def create_category(data, user):
 
 
 @app.get("/categories")
-@authenticate_user(required=False)
+@authenticate_user()
 @pass_data(CategoryPaginationSchema)
 def get_categories(data, user):
     categories, total_items = category_engine.get_categories(data)
@@ -30,7 +40,7 @@ def get_categories(data, user):
     return jsonify(
         {
             "categories": [
-                category for category in categories
+                get_category_data(category) for category in categories
             ],
             "page": data["page"],
             "items_per_page": data["items_per_page"],
@@ -40,7 +50,7 @@ def get_categories(data, user):
 
 
 @app.get("/categories/<int:id>")
-@authenticate_user(required=False)
+@authenticate_user()
 def get_category_by_id(user, id):
     category = category_engine.find_category_by_id(id)
 
