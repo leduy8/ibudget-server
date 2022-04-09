@@ -31,7 +31,7 @@ def get_currencies(params: Dict) -> List[object]:
 
 def create_currency(data: Dict, user_id: int) -> CurrencyModel:
     currency = CurrencyModel(
-        name=data["name"], abbriviation=data["abbriviation"], user_id=user_id)
+        name=data["name"], abbreviation=data["abbreviation"])
 
     db.session.add(currency)
     db.session.commit()
@@ -41,7 +41,7 @@ def create_currency(data: Dict, user_id: int) -> CurrencyModel:
 
 def update_currency(data: Dict, currency: CurrencyModel) -> CurrencyModel:
     currency.name = data["name"]
-    currency.abbreviation = data["abbriviation"]
+    currency.abbreviation = data["abbreviation"]
 
     db.session.commit()
 
