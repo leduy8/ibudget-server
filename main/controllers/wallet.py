@@ -27,6 +27,9 @@ def get_wallet_data(wallet: WalletModel):
 @authenticate_user()
 @pass_data(LoadWalletSchema)
 def create_wallet(data, user):
+    if wallet_engine.check_existing_wallet_of_user(user.id, data["name"]):
+        raise BadRequest(error_message="Wallet name has already been used ")
+
     wallet = wallet_engine.create_wallet(data, user.id)
 
     return DumpWalletSchema().jsonify(wallet)

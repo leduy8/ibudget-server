@@ -3,7 +3,7 @@ from main.models.base import BaseModel
 
 
 class LenderModel(BaseModel):
-    __tablename__ = "Lender"
+    __tablename__ = "lender"
 
     lender_name = db.Column(db.String(50), nullable=False)
     lent_money = db.Column(db.Float(precision=2), nullable=False)
