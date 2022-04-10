@@ -4,14 +4,13 @@ from main import app
 from main.commons.decorators import authenticate_user, pass_data
 from main.commons.exceptions import BadRequest, Forbidden, NotFound
 from main.engines import wallet as wallet_engine
-from main.schemas.base import PaginationSchema
+from main.schemas.base import PaginationSchema, TransactSchema
 from main.models.wallet import WalletModel
 from main.schemas.dump.wallet import DumpWalletSchema
 from main.schemas.load.wallet import (
     LoadUpdateWalletSchema,
     LoadWalletSchema,
 )
-from main.schemas.base import TransactSchema
 
 
 def get_wallet_data(wallet: WalletModel):

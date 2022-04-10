@@ -40,6 +40,7 @@ def create_debtor(data: Dict, user_id: int) -> DebtorModel:
 
 def update_debtor(data: Dict, debtor: DebtorModel) -> DebtorModel:
     debtor.debtor_name = data["debtor_name"]
+    debtor.debt_money = data["debt_money"]
 
     db.session.commit()
 
@@ -51,8 +52,8 @@ def delete_debtor(debtor: DebtorModel):
     db.session.commit()
 
 
-def transaction_in_debtor(data: Dict, debtor: DebtorModel):
-    debtor.debt_money += data["price"]
+def transact_in_debtor(data: Dict, debtor: DebtorModel):
+    debtor.debt_money -= data["price"]
 
     db.session.commit()
 
