@@ -31,7 +31,7 @@ def create_lender(data, user):
 
 
 @app.get("/lenders")
-@authenticate_user(required=False)
+@authenticate_user()
 @pass_data(PaginationSchema)
 def get_lenders(data, user):
     lenders, total_items = lender_engine.get_lenders(data)
@@ -49,7 +49,7 @@ def get_lenders(data, user):
 
 
 @app.get("/lenders/<int:id>")
-@authenticate_user(required=False)
+@authenticate_user()
 def get_lender_by_id(user, id):
     lender = lender_engine.find_lender_by_id(id)
 

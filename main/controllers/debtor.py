@@ -31,7 +31,7 @@ def create_debtor(data, user):
 
 
 @app.get("/debtors")
-@authenticate_user(required=False)
+@authenticate_user()
 @pass_data(PaginationSchema)
 def get_debtors(data, user):
     debtors, total_items = debtor_engine.get_debtors(data)
@@ -49,7 +49,7 @@ def get_debtors(data, user):
 
 
 @app.get("/debtors/<int:id>")
-@authenticate_user(required=False)
+@authenticate_user()
 def get_debtor_by_id(user, id):
     debtor = debtor_engine.find_debtor_by_id(id)
 
