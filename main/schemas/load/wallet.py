@@ -13,4 +13,4 @@ class LoadUpdateWalletSchema(BaseSchema):
 
 
 class LoadTransactionWalletSchema(BaseSchema):
-    balance = fields.Float(validate=validate.Range(min=0), required=True)
+    price = fields.Float(required=True)

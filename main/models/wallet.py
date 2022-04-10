@@ -6,6 +6,7 @@ class WalletModel(BaseModel):
     __tablename__ = "wallet"
 
     name = db.Column(db.String(50), unique=True, nullable=False)
+    balance = db.Column(db.Float, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     transactions = db.relationship(
         "TransactionModel", backref="wallet", cascade="all,delete", lazy="dynamic"
