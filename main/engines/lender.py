@@ -40,6 +40,7 @@ def create_lender(data: Dict, user_id: int) -> LenderModel:
 
 def update_lender(data: Dict, lender: LenderModel) -> LenderModel:
     lender.lender_name = data["lender_name"]
+    lender.lent_money = data["lent_money"]
 
     db.session.commit()
 
@@ -51,8 +52,8 @@ def delete_lender(lender: LenderModel):
     db.session.commit()
 
 
-def transaction_in_lender(data: Dict, lender: LenderModel):
-    lender.lent_money += data["price"]
+def transact_in_lender(data: Dict, lender: LenderModel):
+    lender.lent_money -= data["price"]
 
     db.session.commit()
 

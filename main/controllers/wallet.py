@@ -8,10 +8,10 @@ from main.schemas.base import PaginationSchema
 from main.models.wallet import WalletModel
 from main.schemas.dump.wallet import DumpWalletSchema
 from main.schemas.load.wallet import (
-    LoadTransactionWalletSchema,
     LoadUpdateWalletSchema,
     LoadWalletSchema,
 )
+from main.schemas.base import TransactSchema
 
 
 def get_wallet_data(wallet: WalletModel):
@@ -101,7 +101,7 @@ def delete_wallet_by_id(user, id):
 
 @app.put("/wallets/<int:id>/transaction")
 @authenticate_user()
-@pass_data(LoadTransactionWalletSchema)
+@pass_data(TransactSchema)
 def transact_in_wallet(data, user, id):
     wallet = wallet_engine.find_wallet_by_id(id)
 

@@ -10,7 +10,3 @@ class LoadWalletSchema(BaseSchema):
 
 class LoadUpdateWalletSchema(BaseSchema):
     name = fields.String(validate=validate.Length(max=50), required=True)
-
-
-class LoadTransactionWalletSchema(BaseSchema):
-    price = fields.Float(required=True)
