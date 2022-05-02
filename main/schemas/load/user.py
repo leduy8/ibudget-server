@@ -11,3 +11,7 @@ class LoadUserSchema(BaseSchema):
 
 class LoadUserUpdateSchema(BaseSchema):
     name = fields.String(validate=validate.Length(max=50), required=True)
+
+
+class LoadUserChangePasswordSchema(BaseSchema):
+    password = fields.String(validate=validate.Length(min=6, max=32), required=True)

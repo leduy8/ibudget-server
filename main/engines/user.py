@@ -32,3 +32,12 @@ def update_user(data: Dict, user: UserModel) -> UserModel:
     db.session.commit()
 
     return user
+
+
+def update_user_password(data: Dict, user: UserModel) -> UserModel:
+    user.password_hash = (data["password_hash"],)
+    user.password_salt = data["password_salt"]
+
+    db.session.commit()
+
+    return user

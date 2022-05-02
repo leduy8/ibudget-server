@@ -1,13 +1,17 @@
 from flask import jsonify
 
 from main import app
-from main.commons.decorators import pass_data
-from main.commons.exceptions import BadRequest, NotFound
+from main.commons.decorators import authenticate_user, pass_data
+from main.commons.exceptions import BadRequest
 from main.engines import user as user_engine
 from main.libs.jwt import create_access_token
 from main.libs.password import gen_salt, generate_password_hash
 from main.schemas.dump.user import DumpUserSchema
-from main.schemas.load.user import LoadUserSchema, LoadUserUpdateSchema
+from main.schemas.load.user import (
+    LoadUserChangePasswordSchema,
+    LoadUserSchema,
+    LoadUserUpdateSchema,
+)
 
 
 @app.post("/users")
@@ -15,8 +19,6 @@ from main.schemas.load.user import LoadUserSchema, LoadUserUpdateSchema
 def register_user(data):
     if user_engine.find_user_by_username(data["username"]):
         raise BadRequest(error_message="Username is already registered")
-
-    print("1")
 
     data["password_salt"] = gen_salt()
     data["password_hash"] = generate_password_hash(
@@ -29,13 +31,23 @@ def register_user(data):
 
 
 @app.put("/users/<int:id>")
+@authenticate_user()
 @pass_data(LoadUserUpdateSchema)
-def update_user(data, id):
-    user = user_engine.find_user_by_id(id)
-
-    if not user:
-        raise NotFound(error_message="User's not found")
-
+def update_user(data, user, id):
     user = user_engine.update_user(data, user)
 
     return DumpUserSchema().jsonify(user)
+
+
+@app.put("/users/<int:id>/change_password")
+@authenticate_user()
+@pass_data(LoadUserChangePasswordSchema)
+def update_user_password(data, user, id):
+    data["password_salt"] = gen_salt()
+    data["password_hash"] = generate_password_hash(
+        data["password"], data["password_salt"]
+    )
+
+    user = user_engine.update_user_password(data, user)
+
+    return {"message": "Changed user's password successfully"}

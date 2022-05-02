@@ -9,7 +9,6 @@ class UserModel(BaseModel):
     password_hash = db.Column(db.String(64), nullable=False)
     password_salt = db.Column(db.String(12), nullable=False)
     name = db.Column(db.String(50), nullable=False)
-    is_admin = db.Column(db.Boolean, default=False)
     wallets = db.relationship(
         "WalletModel", backref="owner", cascade="all,delete", lazy="dynamic"
     )
