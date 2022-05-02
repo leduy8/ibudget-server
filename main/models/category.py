@@ -5,8 +5,7 @@ from main.models.base import BaseModel
 class CategoryModel(BaseModel):
     __tablename__ = "category"
 
-    name = db.Column(db.String(50), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    name = db.Column(db.String(50), unique=True, nullable=False)
     transactions = db.relationship(
         "TransactionModel", backref="category", cascade="all,delete", lazy="dynamic"
     )
