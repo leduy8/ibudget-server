@@ -27,9 +27,7 @@ def get_lenders(params: Dict) -> List[object]:
 
 def create_lender(data: Dict, user_id: int) -> LenderModel:
     lender = LenderModel(
-        lender_name=data["lender_name"],
-        user_id=user_id,
-        lent_money=data["lent_money"]
+        lender_name=data["lender_name"], user_id=user_id, lent_money=data["lent_money"]
     )
 
     db.session.add(lender)

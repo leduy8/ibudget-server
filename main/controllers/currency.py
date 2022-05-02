@@ -4,10 +4,10 @@ from main import app
 from main.commons.decorators import authenticate_user, pass_data
 from main.commons.exceptions import BadRequest, Forbidden, NotFound
 from main.engines import currency as currency_engine
-from main.schemas.dump.currency import DumpCurrencySchema
-from main.schemas.load.currency import LoadCurrencySchema
 from main.models.currency import CurrencyModel
 from main.schemas.base import PaginationSchema
+from main.schemas.dump.currency import DumpCurrencySchema
+from main.schemas.load.currency import LoadCurrencySchema
 
 
 def get_currency_data(currency: CurrencyModel):
@@ -26,7 +26,8 @@ def get_currency_data(currency: CurrencyModel):
 def create_currency(data, user):
     if not user.is_admin:
         raise Forbidden(
-            error_message="You don't have permission to create new currency")
+            error_message="You don't have permission to create new currency"
+        )
 
     if currency_engine.find_currency_by_name(data["name"]):
         raise BadRequest(error_message="Currency name has already been used")
@@ -47,9 +48,7 @@ def get_currencies(data, user_id):
 
     return jsonify(
         {
-            "currencies": [
-                get_currency_data(currency) for currency in currencies
-            ],
+            "currencies": [get_currency_data(currency) for currency in currencies],
             "page": data["page"],
             "items_per_page": data["items_per_page"],
             "total_items": total_items,
@@ -79,7 +78,8 @@ def update_currency_by_id(data, user, id):
 
     if not user.is_admin:
         raise Forbidden(
-            error_message="You don't have permission to update existing currency")
+            error_message="You don't have permission to update existing currency"
+        )
 
     currency_by_name = currency_engine.find_currency_by_name(data["name"])
 
@@ -87,7 +87,8 @@ def update_currency_by_id(data, user, id):
         raise BadRequest(error_message="Currency name has already been used")
 
     currency_by_abbreviation = currency_engine.find_currency_by_abbreviation(
-        data["abbreviation"])
+        data["abbreviation"]
+    )
 
     if currency_by_abbreviation and currency_by_abbreviation.id != currency.id:
         raise BadRequest(error_message="Currency abbreviation has already been used")
@@ -107,7 +108,8 @@ def delete_currency_by_id(user, id):
 
     if not user.is_admin:
         raise Forbidden(
-            error_message="You don't have permission to delete existing currency")
+            error_message="You don't have permission to delete existing currency"
+        )
 
     currency_engine.delete_currency(currency)
 

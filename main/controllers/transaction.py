@@ -3,7 +3,10 @@ from flask import jsonify
 from main import app
 from main.commons.decorators import authenticate_user, pass_data
 from main.commons.exceptions import Forbidden, NotFound
-from main.engines import transaction as transaction_engine, category as category_engine, wallet as wallet_engine, currency as currency_engine
+from main.engines import category as category_engine
+from main.engines import currency as currency_engine
+from main.engines import transaction as transaction_engine
+from main.engines import wallet as wallet_engine
 from main.models.transaction import TransactionModel
 from main.schemas.dump.transaction import DumpTransactionSchema
 from main.schemas.load.transaction import LoadTransactionSchema

@@ -8,3 +8,6 @@ PyMySQL>=1.0.2
 SQLAlchemy>=1.4.26
 alembic>=1.7.4
 marshmallow>=3.14.0
+flask-admin>=1.6.0
+flask-basicauth>=0.2.0
+autopep8>=1.6.0

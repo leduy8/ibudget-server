@@ -39,9 +39,7 @@ def get_categories(data, user):
 
     return jsonify(
         {
-            "categories": [
-                get_category_data(category) for category in categories
-            ],
+            "categories": [get_category_data(category) for category in categories],
             "page": data["page"],
             "items_per_page": data["items_per_page"],
             "total_items": total_items,
@@ -75,7 +73,8 @@ def update_category_by_id(data, user, id):
         )
 
     category_by_name = category_engine.check_existing_category_of_user(
-        user.id, data["name"])
+        user.id, data["name"]
+    )
 
     if category_by_name and category_by_name.id != category.id:
         raise BadRequest(error_message="Category name has already been used")

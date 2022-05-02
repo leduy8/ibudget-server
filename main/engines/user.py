@@ -17,7 +17,7 @@ def create_user(data: Dict) -> UserModel:
         username=data["username"],
         password_hash=data["password_hash"],
         password_salt=data["password_salt"],
-        name=data["name"]
+        name=data["name"],
     )
 
     db.session.add(user)

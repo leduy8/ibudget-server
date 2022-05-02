@@ -28,7 +28,7 @@ def create_transaction(data: Dict, user_id: int) -> TransactionModel:
         user_id=user_id,
         currency_id=data["currency_id"],
         wallet_id=data["wallet_id"],
-        category_id=data["category_id"]
+        category_id=data["category_id"],
     )
 
     if "note" in data:

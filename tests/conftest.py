@@ -11,7 +11,6 @@ from main import db
 from tests.data_mocker import (
     create_access_token,
     create_dummy_category,
-    create_dummy_item,
     create_dummy_user,
 )
 

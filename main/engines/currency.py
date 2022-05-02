@@ -30,8 +30,7 @@ def get_currencies(params: Dict) -> List[object]:
 
 
 def create_currency(data: Dict) -> CurrencyModel:
-    currency = CurrencyModel(
-        name=data["name"], abbreviation=data["abbreviation"])
+    currency = CurrencyModel(name=data["name"], abbreviation=data["abbreviation"])
 
     db.session.add(currency)
     db.session.commit()

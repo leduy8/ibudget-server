@@ -1,1 +1,1 @@
-__all__ = ['user', 'category', 'currency', 'debtor', 'lender', 'transaction', 'wallet']
+__all__ = ["user", "category", "currency", "debtor", "lender", "transaction", "wallet"]

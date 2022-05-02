@@ -2,10 +2,10 @@ from flask import jsonify
 
 from main import app
 from main.commons.decorators import authenticate_user, pass_data
-from main.commons.exceptions import Forbidden, NotFound, BadRequest
+from main.commons.exceptions import BadRequest, Forbidden, NotFound
 from main.engines import debtor as debtor_engine
-from main.schemas.base import PaginationSchema, TransactSchema
 from main.models.debtor import DebtorModel
+from main.schemas.base import PaginationSchema, TransactSchema
 from main.schemas.dump.debtor import DumpDebtorSchema
 from main.schemas.load.debtor import LoadDebtorSchema
 
@@ -38,9 +38,7 @@ def get_debtors(data, user):
 
     return jsonify(
         {
-            "debtors": [
-                get_debtor_data(debtor) for debtor in debtors
-            ],
+            "debtors": [get_debtor_data(debtor) for debtor in debtors],
             "page": data["page"],
             "items_per_page": data["items_per_page"],
             "total_items": total_items,

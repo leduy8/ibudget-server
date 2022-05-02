@@ -30,11 +30,7 @@ def get_wallets(params: Dict) -> List[object]:
 
 
 def create_wallet(data: Dict, user_id: int) -> WalletModel:
-    wallet = WalletModel(
-        name=data["name"],
-        user_id=user_id,
-        balance=data["balance"]
-    )
+    wallet = WalletModel(name=data["name"], user_id=user_id, balance=data["balance"])
 
     db.session.add(wallet)
     db.session.commit()

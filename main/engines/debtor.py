@@ -27,9 +27,7 @@ def get_debtors(params: Dict) -> List[object]:
 
 def create_debtor(data: Dict, user_id: int) -> DebtorModel:
     debtor = DebtorModel(
-        debtor_name=data["debtor_name"],
-        user_id=user_id,
-        debt_money=data["debt_money"]
+        debtor_name=data["debtor_name"], user_id=user_id, debt_money=data["debt_money"]
     )
 
     db.session.add(debtor)

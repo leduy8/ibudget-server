@@ -6,8 +6,8 @@ from main.commons.exceptions import BadRequest, NotFound
 from main.engines import user as user_engine
 from main.libs.jwt import create_access_token
 from main.libs.password import gen_salt, generate_password_hash
-from main.schemas.load.user import LoadUserSchema, LoadUserUpdateSchema
 from main.schemas.dump.user import DumpUserSchema
+from main.schemas.load.user import LoadUserSchema, LoadUserUpdateSchema
 
 
 @app.post("/users")
