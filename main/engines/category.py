@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, List
 
 from main import db
 from main.models.category import CategoryModel
@@ -13,9 +13,15 @@ def find_category_by_name(name: str) -> CategoryModel:
 
 
 def create_category(data: Dict) -> CategoryModel:
-    category = CategoryModel(name=data["name"], group_name=data["group_name"])
+    category = CategoryModel(name=data["name"])
 
     db.session.add(category)
     db.session.commit()
 
     return category
+
+
+def get_categories() -> List[object]:
+    categories = CategoryModel.query.all()
+
+    return [categories, len(categories)]
