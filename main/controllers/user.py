@@ -30,6 +30,12 @@ def register_user(data):
     return jsonify({"access_token": create_access_token({"id": user.id})})
 
 
+@app.get("/users/me")
+@authenticate_user()
+def get_user_info(user):
+    return DumpUserSchema().jsonify(user)
+
+
 @app.put("/users/<int:id>")
 @authenticate_user()
 @pass_data(LoadUserUpdateSchema)

@@ -4,21 +4,9 @@ from main import app
 from main.commons.decorators import authenticate_user, pass_data
 from main.commons.exceptions import BadRequest, Forbidden, NotFound
 from main.engines import lender as lender_engine
-from main.models.lender import LenderModel
 from main.schemas.base import PaginationSchema, TransactSchema
 from main.schemas.dump.lender import DumpLenderSchema
 from main.schemas.load.lender import LoadLenderSchema
-
-
-def get_lender_data(lender: LenderModel):
-    return {
-        "id": lender.id,
-        "user_id": lender.user_id,
-        "lender_name": lender.lender_name,
-        "lent_money": lender.lent_money,
-        "created": lender.created,
-        "updated": lender.updated,
-    }
 
 
 @app.post("/lenders")
@@ -38,7 +26,7 @@ def get_lenders(data, user):
 
     return jsonify(
         {
-            "lenders": [get_lender_data(lender) for lender in lenders],
+            "lenders": [DumpLenderSchema().dump(lender) for lender in lenders],
             "page": data["page"],
             "items_per_page": data["items_per_page"],
             "total_items": total_items,

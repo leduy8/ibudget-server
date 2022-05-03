@@ -7,25 +7,9 @@ from main.engines import category as category_engine
 from main.engines import currency as currency_engine
 from main.engines import transaction as transaction_engine
 from main.engines import wallet as wallet_engine
-from main.models.transaction import TransactionModel
 from main.schemas.dump.transaction import DumpTransactionSchema
 from main.schemas.load.transaction import LoadTransactionSchema
 from main.schemas.paginate import TransactionPaginationSchema
-
-
-def get_transaction_data(transaction: TransactionModel):
-    return {
-        "id": transaction.id,
-        "price": transaction.price,
-        "note": transaction.note or None,
-        "is_positive": transaction.is_positive,
-        "user_id": transaction.user_id,
-        "category_id": transaction.category_id,
-        "wallet_id": transaction.wallet_id,
-        "currency_id": transaction.currency_id,
-        "created": transaction.created,
-        "updated": transaction.updated,
-    }
 
 
 @app.post("/transactions")
@@ -50,13 +34,13 @@ def create_transaction(data, user):
 @authenticate_user(required=False)
 @pass_data(TransactionPaginationSchema)
 def get_transactions(data, user):
-    print(data)
     transactions, total_items = transaction_engine.get_transactions(data)
 
     return jsonify(
         {
             "transactions": [
-                get_transaction_data(transaction) for transaction in transactions
+                DumpTransactionSchema().dump(transaction)
+                for transaction in transactions
             ],
             "from": data["from_date"],
             "to": data["to_date"],
@@ -82,7 +66,6 @@ def get_transaction_by_id(user, id):
 @authenticate_user()
 @pass_data(LoadTransactionSchema)
 def update_transaction_by_id(data, user, id):
-    print(data)
     transaction = transaction_engine.find_transaction_by_id(id)
 
     if not transaction:

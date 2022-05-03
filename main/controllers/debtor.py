@@ -4,21 +4,9 @@ from main import app
 from main.commons.decorators import authenticate_user, pass_data
 from main.commons.exceptions import BadRequest, Forbidden, NotFound
 from main.engines import debtor as debtor_engine
-from main.models.debtor import DebtorModel
 from main.schemas.base import PaginationSchema, TransactSchema
 from main.schemas.dump.debtor import DumpDebtorSchema
 from main.schemas.load.debtor import LoadDebtorSchema
-
-
-def get_debtor_data(debtor: DebtorModel):
-    return {
-        "id": debtor.id,
-        "debtor_name": debtor.debtor_name,
-        "debt_money": debtor.debt_money,
-        "user_id": debtor.user_id,
-        "created": debtor.created,
-        "updated": debtor.updated,
-    }
 
 
 @app.post("/debtors")
@@ -38,7 +26,7 @@ def get_debtors(data, user):
 
     return jsonify(
         {
-            "debtors": [get_debtor_data(debtor) for debtor in debtors],
+            "debtors": [DumpDebtorSchema().dump(debtor) for debtor in debtors],
             "page": data["page"],
             "items_per_page": data["items_per_page"],
             "total_items": total_items,

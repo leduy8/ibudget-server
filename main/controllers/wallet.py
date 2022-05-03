@@ -4,20 +4,9 @@ from main import app
 from main.commons.decorators import authenticate_user, pass_data
 from main.commons.exceptions import BadRequest, Forbidden, NotFound
 from main.engines import wallet as wallet_engine
-from main.models.wallet import WalletModel
 from main.schemas.base import PaginationSchema, TransactSchema
 from main.schemas.dump.wallet import DumpWalletSchema
 from main.schemas.load.wallet import LoadUpdateWalletSchema, LoadWalletSchema
-
-
-def get_wallet_data(wallet: WalletModel):
-    return {
-        "id": wallet.id,
-        "name": wallet.name,
-        "user_id": wallet.user_id,
-        "created": wallet.created,
-        "updated": wallet.updated,
-    }
 
 
 @app.post("/wallets")
@@ -40,7 +29,7 @@ def get_wallets(data, user):
 
     return jsonify(
         {
-            "wallets": [get_wallet_data(wallet) for wallet in wallets],
+            "wallets": [DumpWalletSchema().dump(wallet) for wallet in wallets],
             "page": data["page"],
             "items_per_page": data["items_per_page"],
             "total_items": total_items,
