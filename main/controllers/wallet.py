@@ -25,7 +25,7 @@ def create_wallet(data, user):
 @authenticate_user()
 @pass_data(PaginationSchema)
 def get_wallets(data, user):
-    wallets, total_items = wallet_engine.get_wallets(data)
+    wallets, total_items = wallet_engine.get_wallets(data, user.id)
 
     return jsonify(
         {

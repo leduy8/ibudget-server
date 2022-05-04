@@ -22,7 +22,7 @@ def create_debtor(data, user):
 @authenticate_user()
 @pass_data(PaginationSchema)
 def get_debtors(data, user):
-    debtors, total_items = debtor_engine.get_debtors(data)
+    debtors, total_items = debtor_engine.get_debtors(data, user.id)
 
     return jsonify(
         {

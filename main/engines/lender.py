@@ -16,9 +16,9 @@ def get_lender_count() -> int:
     return LenderModel.query.count()
 
 
-def get_lenders(params: Dict) -> List[object]:
+def get_lenders(params: Dict, user_id: int) -> List[object]:
     """Returns list of list of lender model and count of total items"""
-    lenders = LenderModel.query.paginate(
+    lenders = LenderModel.query.filter_by(user_id=user_id).paginate(
         params["page"], params["items_per_page"], False
     )
 

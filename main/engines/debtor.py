@@ -16,9 +16,9 @@ def get_debtor_count() -> int:
     return DebtorModel.query.count()
 
 
-def get_debtors(params: Dict) -> List[object]:
+def get_debtors(params: Dict, user_id: int) -> List[object]:
     """Returns list of list of debtor model and count of total items"""
-    debtors = DebtorModel.query.paginate(
+    debtors = DebtorModel.query.filter_by(user_id=user_id).paginate(
         params["page"], params["items_per_page"], False
     )
 

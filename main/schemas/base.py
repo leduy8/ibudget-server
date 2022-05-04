@@ -1,7 +1,7 @@
 from flask import jsonify
 from marshmallow import EXCLUDE, Schema, fields, validate
 
-from main import config
+from main.config import config
 
 
 class BaseSchema(Schema):

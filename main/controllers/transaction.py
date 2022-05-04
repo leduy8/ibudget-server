@@ -34,7 +34,7 @@ def create_transaction(data, user):
 @authenticate_user(required=False)
 @pass_data(TransactionPaginationSchema)
 def get_transactions(data, user):
-    transactions, total_items = transaction_engine.get_transactions(data)
+    transactions, total_items = transaction_engine.get_transactions(data, user.id)
 
     return jsonify(
         {

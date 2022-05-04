@@ -22,7 +22,7 @@ def create_lender(data, user):
 @authenticate_user()
 @pass_data(PaginationSchema)
 def get_lenders(data, user):
-    lenders, total_items = lender_engine.get_lenders(data)
+    lenders, total_items = lender_engine.get_lenders(data, user.id)
 
     return jsonify(
         {

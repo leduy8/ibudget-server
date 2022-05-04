@@ -20,9 +20,9 @@ def check_existing_wallet_of_user(user_id: int, name: str) -> WalletModel:
     return WalletModel.query.filter_by(user_id=user_id).filter_by(name=name).first()
 
 
-def get_wallets(params: Dict) -> List[object]:
+def get_wallets(params: Dict, user_id: int) -> List[object]:
     """Returns list of list of wallet model and count of total items"""
-    wallets = WalletModel.query.paginate(
+    wallets = WalletModel.query.filter_by(user_id=user_id).paginate(
         params["page"], params["items_per_page"], False
     )
 

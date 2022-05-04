@@ -12,9 +12,9 @@ def get_transaction_count() -> int:
     return TransactionModel.query.count()
 
 
-def get_transactions(params: Dict) -> List[object]:
+def get_transactions(params: Dict, user_id: int) -> List[object]:
     """Returns list of list of transaction model and count of total items"""
-    transactions = TransactionModel.query.paginate(
+    transactions = TransactionModel.query.filter_by(user_id=user_id).paginate(
         params["page"], params["items_per_page"], False
     )
 
