@@ -11,5 +11,5 @@ class CategoryPaginationSchema(PaginationSchema):
 
 
 class TransactionPaginationSchema(PaginationSchema):
-    from_date = fields.Date()
-    to_date = fields.Date()
+    from_date = fields.Date(load_default=None)
+    to_date = fields.Date(load_default=None)
