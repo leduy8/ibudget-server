@@ -45,10 +45,10 @@ def update_user(data, user, id):
     return DumpUserSchema().jsonify(user)
 
 
-@app.put("/users/<int:id>/change_password")
+@app.put("/users/password_change")
 @authenticate_user()
 @pass_data(LoadUserChangePasswordSchema)
-def update_user_password(data, user, id):
+def update_user_password(data, user):
     data["password_salt"] = gen_salt()
     data["password_hash"] = generate_password_hash(
         data["password"], data["password_salt"]
