@@ -21,6 +21,9 @@ class UserModel(BaseModel):
     debtors = db.relationship(
         "DebtorModel", backref="lender", cascade="all,delete", lazy="dynamic"
     )
+    budgets = db.relationship(
+        "BudgetModel", backref="owner", cascade="all,delete", lazy="dynamic"
+    )
 
     def __str__(self) -> str:
         return f"<UserModel {self.id} {self.username}>"

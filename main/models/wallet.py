@@ -11,6 +11,9 @@ class WalletModel(BaseModel):
     transactions = db.relationship(
         "TransactionModel", backref="wallet", cascade="all,delete", lazy="dynamic"
     )
+    budgets = db.relationship(
+        "BudgetModel", backref="wallet", cascade="all,delete", lazy="dynamic"
+    )
 
     def __str__(self) -> str:
         return f"<WalletModel {self.id} {self.name}>"

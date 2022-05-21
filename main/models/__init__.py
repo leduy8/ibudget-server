@@ -1,1 +1,1 @@
-__all__ = ["user", "category", "debtor", "lender", "transaction", "wallet"]
+__all__ = ["user", "category", "debtor", "lender", "transaction", "wallet", "budget"]

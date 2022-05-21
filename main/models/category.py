@@ -10,6 +10,9 @@ class CategoryModel(BaseModel):
     transactions = db.relationship(
         "TransactionModel", backref="category", cascade="all,delete", lazy="dynamic"
     )
+    budgets = db.relationship(
+        "BudgetModel", backref="category", cascade="all,delete", lazy="dynamic"
+    )
 
     def __str__(self) -> str:
         return f"<CategoryModel {self.id} {self.name}>"

@@ -3,23 +3,10 @@ from main.libs.log import ServiceLogger
 
 logger = ServiceLogger(name="seed.py")
 
-# class CategoryGroup():
-#     TRANSPORTATION = "Transportation"
-#     GIFT_AND_DONATION = "Gifts & Donation"
-#     FOOD_AND_BEVERAGE = "Food & Beverage"
-#     BILLS = "Bills"
-#     SHOPPING = "Shopping"
-#     FRIENDS_AND_LOVER = "Friends & Lover"
-#     ENTERTAINMENT = "Entertainment"
-#     TRAVEL = "Travel"
-#     HEALTH_AND_FITNESS = "Health & Fitness"
-#     FAMILY = "Family"
-#     EDUCATION = "Education"
-#     INVESTMENT = "Investment"
-#     BUSINESS = "Business"
-#     OTHER_EXPENSE = "Other Expense"
-
 logger.info(message="Creating category seeds...")
+
+# * All
+create_category({"name": "All categories", "type": "All"})
 
 # * Expenses
 create_category({"name": "Transportation", "type": "Expense"})
