@@ -3,15 +3,17 @@ import json
 from flask import jsonify
 
 from main import app
-from main.commons.decorators import authenticate_user
+from main.commons.decorators import authenticate_user, pass_data
 from main.commons.exceptions import NotFound
 from main.engines import category as category_engine
 from main.schemas.dump.category import DumpCategorySchema
+from main.schemas.base import PaginationSchema
 
 
 @app.get("/categories")
 @authenticate_user()
-def get_categories(user):
+@pass_data(PaginationSchema)
+def get_categories(data, user):
     categories, total_items = category_engine.get_categories()
 
     return jsonify(

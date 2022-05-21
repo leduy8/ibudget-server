@@ -1,13 +1,6 @@
-from marshmallow import fields, validate
+from marshmallow import fields
 
-from main import config
 from main.schemas.base import PaginationSchema
-
-
-class CategoryPaginationSchema(PaginationSchema):
-    items_per_page = fields.Integer(
-        load_default=config.CATEGORIES_PER_PAGE, validate=validate.Range(min=1)
-    )
 
 
 class TransactionPaginationSchema(PaginationSchema):

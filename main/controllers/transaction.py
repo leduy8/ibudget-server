@@ -27,7 +27,7 @@ def create_transaction(data, user):
 
 
 @app.get("/transactions")
-@authenticate_user(required=False)
+@authenticate_user()
 @pass_data(TransactionPaginationSchema)
 def get_transactions(data, user):
     transactions, total_items = transaction_engine.get_transactions(data, user.id)
@@ -48,7 +48,7 @@ def get_transactions(data, user):
 
 
 @app.get("/transactions/<int:id>")
-@authenticate_user(required=False)
+@authenticate_user()
 def get_transaction_by_id(user, id):
     transaction = transaction_engine.find_transaction_by_id(id)
 
