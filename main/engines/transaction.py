@@ -36,7 +36,6 @@ def create_transaction(data: Dict, user_id: int) -> TransactionModel:
         price=data["price"],
         is_positive=data["is_positive"],
         user_id=user_id,
-        currency_id=data["currency_id"],
         wallet_id=data["wallet_id"],
         category_id=data["category_id"],
     )
@@ -53,7 +52,6 @@ def create_transaction(data: Dict, user_id: int) -> TransactionModel:
 def update_transaction(data: Dict, transaction: TransactionModel) -> TransactionModel:
     transaction.price = data["price"]
     transaction.is_positive = data["is_positive"]
-    transaction.currency_id = data["currency_id"]
     transaction.wallet_id = data["wallet_id"]
     transaction.category_id = data["category_id"]
 

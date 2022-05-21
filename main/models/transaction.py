@@ -11,7 +11,6 @@ class TransactionModel(BaseModel):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     category_id = db.Column(db.Integer, db.ForeignKey("category.id"))
     wallet_id = db.Column(db.Integer, db.ForeignKey("wallet.id"))
-    currency_id = db.Column(db.Integer, db.ForeignKey("currency.id"))
 
     def __str__(self) -> str:
         return f"<Transaction {self.id} {self.price} {self.user_id}>"

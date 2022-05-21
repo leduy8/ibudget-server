@@ -1,5 +1,4 @@
 from main.engines.category import create_category
-from main.engines.currency import create_currency
 from main.libs.log import ServiceLogger
 
 logger = ServiceLogger(name="seed.py")
@@ -48,11 +47,3 @@ create_category({"name": "Funding", "type": "Income"})
 create_category({"name": "Other Income", "type": "Income"})
 
 logger.info(message="Finished creating catogory seeds!")
-
-
-logger.info(message="Creating currency seeds...")
-
-create_currency({"name": "Vietnam Dong", "abbreviation": "VND"})
-create_currency({"name": "United State Dollar", "abbreviation": "USD"})
-
-logger.info(message="Finished creating currency seeds!")

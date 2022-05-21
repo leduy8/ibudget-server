@@ -4,7 +4,6 @@ from werkzeug.exceptions import HTTPException
 
 from main import admin, basic_auth, db
 from main.models.category import CategoryModel
-from main.models.currency import CurrencyModel
 from main.models.debtor import DebtorModel
 from main.models.lender import LenderModel
 from main.models.transaction import TransactionModel
@@ -45,12 +44,6 @@ category_model_view = ModelView(
     name="Category",
 )
 
-currency_model_view = ModelView(
-    CurrencyModel,
-    db.session,
-    name="Currency",
-)
-
 wallet_model_view = ModelView(
     WalletModel,
     db.session,
@@ -75,7 +68,6 @@ lender_model_view = ModelView(
 
 admin.add_view(user_model_view)
 admin.add_view(category_model_view)
-admin.add_view(currency_model_view)
 admin.add_view(wallet_model_view)
 admin.add_view(transaction_model_view)
 admin.add_view(debtor_model_view)

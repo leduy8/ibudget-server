@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 5078528b7510
+Revision ID: bf0236fa078d
 Revises: 
-Create Date: 2022-05-21 15:52:51.836719
+Create Date: 2022-05-21 17:56:37.512406
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '5078528b7510'
+revision = 'bf0236fa078d'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -25,16 +25,6 @@ def upgrade():
     sa.Column('name', sa.String(length=50), nullable=False),
     sa.Column('type', sa.String(length=50), nullable=False),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('name')
-    )
-    op.create_table('currency',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('created', sa.DateTime(), nullable=False),
-    sa.Column('updated', sa.DateTime(), nullable=False),
-    sa.Column('name', sa.String(length=40), nullable=False),
-    sa.Column('abbreviation', sa.String(length=3), nullable=False),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('abbreviation'),
     sa.UniqueConstraint('name')
     )
     op.create_table('user',
@@ -89,9 +79,7 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('category_id', sa.Integer(), nullable=True),
     sa.Column('wallet_id', sa.Integer(), nullable=True),
-    sa.Column('currency_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['category_id'], ['category.id'], ),
-    sa.ForeignKeyConstraint(['currency_id'], ['currency.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.ForeignKeyConstraint(['wallet_id'], ['wallet.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -107,6 +95,5 @@ def downgrade():
     op.drop_table('debtor')
     op.drop_index(op.f('ix_user_username'), table_name='user')
     op.drop_table('user')
-    op.drop_table('currency')
     op.drop_table('category')
     # ### end Alembic commands ###

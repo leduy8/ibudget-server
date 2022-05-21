@@ -4,7 +4,6 @@ from main import app
 from main.commons.decorators import authenticate_user, pass_data
 from main.commons.exceptions import Forbidden, NotFound
 from main.engines import category as category_engine
-from main.engines import currency as currency_engine
 from main.engines import transaction as transaction_engine
 from main.engines import wallet as wallet_engine
 from main.schemas.dump.transaction import DumpTransactionSchema
@@ -18,9 +17,6 @@ from main.schemas.paginate import TransactionPaginationSchema
 def create_transaction(data, user):
     if not category_engine.find_category_by_id(data["category_id"]):
         raise NotFound(error_message="Category not found")
-
-    if not currency_engine.find_currency_by_id(data["currency_id"]):
-        raise NotFound(error_message="Currency not found")
 
     if not wallet_engine.find_wallet_by_id(data["wallet_id"]):
         raise NotFound(error_message="Wallet not found")
@@ -78,9 +74,6 @@ def update_transaction_by_id(data, user, id):
 
     if not category_engine.find_category_by_id(data["category_id"]):
         raise NotFound(error_message="Category not found")
-
-    if not currency_engine.find_currency_by_id(data["currency_id"]):
-        raise NotFound(error_message="Currency not found")
 
     if not wallet_engine.find_wallet_by_id(data["wallet_id"]):
         raise NotFound(error_message="Wallet not found")
