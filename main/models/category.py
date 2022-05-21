@@ -6,6 +6,7 @@ class CategoryModel(BaseModel):
     __tablename__ = "category"
 
     name = db.Column(db.String(50), unique=True, nullable=False)
+    type = db.Column(db.String(50), nullable=False)
     transactions = db.relationship(
         "TransactionModel", backref="category", cascade="all,delete", lazy="dynamic"
     )
