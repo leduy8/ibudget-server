@@ -4,7 +4,7 @@ from main import app
 from main.commons.decorators import authenticate_user, pass_data
 from main.commons.exceptions import BadRequest
 from main.engines import user as user_engine
-from main.libs.jwt import create_access_token
+from main.engines import wallet as wallet_engine
 from main.libs.password import gen_salt, generate_password_hash
 from main.schemas.dump.user import DumpUserSchema
 from main.schemas.load.user import (
@@ -26,8 +26,9 @@ def register_user(data):
     )
 
     user = user_engine.create_user(data)
+    wallet_engine.create_wallet({"name": "All", "balance": 0}, user.id)
 
-    return jsonify({"access_token": create_access_token({"id": user.id})})
+    return jsonify({"message": "User has been created successfully"})
 
 
 @app.get("/users/me")
