@@ -25,8 +25,7 @@ def register_user(data):
         data["password"], data["password_salt"]
     )
 
-    user = user_engine.create_user(data)
-    wallet_engine.create_wallet({"name": "All", "balance": 0}, user.id)
+    user_engine.create_user(data)
 
     return jsonify({"message": "User has been created successfully"})
 
