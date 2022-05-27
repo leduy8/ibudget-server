@@ -5,7 +5,7 @@ from main.models.base import BaseModel
 class WalletModel(BaseModel):
     __tablename__ = "wallet"
 
-    name = db.Column(db.String(50), unique=True, nullable=False)
+    name = db.Column(db.String(50), nullable=False)
     balance = db.Column(db.Float, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     transactions = db.relationship(
