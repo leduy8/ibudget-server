@@ -9,6 +9,7 @@ from main.models.lender import LenderModel
 from main.models.transaction import TransactionModel
 from main.models.user import UserModel
 from main.models.wallet import WalletModel
+from main.models.budget import BudgetModel
 
 
 class AuthException(HTTPException):
@@ -65,6 +66,11 @@ lender_model_view = ModelView(
     db.session,
     name="Lender",
 )
+budget_model_view = ModelView(
+    BudgetModel,
+    db.session,
+    name="budget",
+)
 
 admin.add_view(user_model_view)
 admin.add_view(category_model_view)
@@ -72,3 +78,4 @@ admin.add_view(wallet_model_view)
 admin.add_view(transaction_model_view)
 admin.add_view(debtor_model_view)
 admin.add_view(lender_model_view)
+admin.add_view(budget_model_view)

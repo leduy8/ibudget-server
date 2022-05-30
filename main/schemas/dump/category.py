@@ -7,5 +7,6 @@ class DumpCategorySchema(BaseSchema):
     id = fields.Integer()
     name = fields.String()
     type = fields.String()
+    icon_name = fields.String()
     created = fields.DateTime()
     updated = fields.DateTime()

@@ -13,7 +13,8 @@ def find_category_by_name(name: str) -> CategoryModel:
 
 
 def create_category(data: Dict) -> CategoryModel:
-    category = CategoryModel(name=data["name"], type=data["type"])
+    category = CategoryModel(
+        name=data["name"], type=data["type"], icon_name=data["icon_name"])
 
     db.session.add(category)
     db.session.commit()
