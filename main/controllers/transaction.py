@@ -1,3 +1,5 @@
+import datetime
+
 from flask import jsonify
 
 from main import app
@@ -6,9 +8,18 @@ from main.commons.exceptions import Forbidden, NotFound
 from main.engines import category as category_engine
 from main.engines import transaction as transaction_engine
 from main.engines import wallet as wallet_engine
+from main.schemas.dump.category import DumpCategorySchema
 from main.schemas.dump.transaction import DumpTransactionSchema
 from main.schemas.load.transaction import LoadTransactionSchema
 from main.schemas.paginate import TransactionPaginationSchema
+from main.models.transaction import TransactionModel
+
+
+def get_transaction_data(transaction: TransactionModel):
+    data = DumpTransactionSchema().dump(transaction)
+    category = category_engine.find_category_by_id(data["category_id"])
+    data["category"] = DumpCategorySchema().dump(category)
+    return data
 
 
 @app.post("/transactions")
@@ -35,7 +46,7 @@ def get_transactions(data, user):
     return jsonify(
         {
             "transactions": [
-                DumpTransactionSchema().dump(transaction)
+                get_transaction_data(transaction)
                 for transaction in transactions
             ],
             "from": data["from_date"],

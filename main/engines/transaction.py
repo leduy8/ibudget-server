@@ -1,5 +1,7 @@
 from typing import Dict, List
 
+from sqlalchemy import desc
+
 from main import db
 from main.models.transaction import TransactionModel
 
@@ -14,17 +16,23 @@ def get_transaction_count() -> int:
 
 def get_transactions(params: Dict, user_id: int) -> List[object]:
     """Returns list of list of transaction model and count of total items"""
-    if params["from_date"] and params["to_date"]:
+    if params["from_date"] and params["to_date"] and params["wallet_id"]:
         transactions = (
             TransactionModel.query.filter_by(user_id=user_id)
+            .filter_by(wallet_id=params["wallet_id"])
             .filter(
                 TransactionModel.created_date >= params["from_date"],
                 TransactionModel.created_date <= params["to_date"],
             )
+            .order_by(desc(TransactionModel.created_date))
             .paginate(params["page"], params["items_per_page"], False)
         )
+    elif params["wallet_id"]:
+        transactions = TransactionModel.query.filter_by(user_id=user_id).filter_by(wallet_id=params["wallet_id"]).order_by(desc(TransactionModel.created_date)).paginate(
+            params["page"], params["items_per_page"], False
+        )
     else:
-        transactions = TransactionModel.query.filter_by(user_id=user_id).paginate(
+        transactions = TransactionModel.query.filter_by(user_id=user_id).order_by(desc(TransactionModel.created_date)).paginate(
             params["page"], params["items_per_page"], False
         )
 

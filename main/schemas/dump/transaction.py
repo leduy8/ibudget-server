@@ -13,3 +13,4 @@ class DumpTransactionSchema(BaseSchema):
     updated = fields.DateTime()
     user_id = fields.Integer()
     category_id = fields.Integer()
+    wallet_id = fields.Integer()
