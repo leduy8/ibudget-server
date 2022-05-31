@@ -69,7 +69,7 @@ lender_model_view = ModelView(
 budget_model_view = ModelView(
     BudgetModel,
     db.session,
-    name="budget",
+    name="Budget",
 )
 
 admin.add_view(user_model_view)
