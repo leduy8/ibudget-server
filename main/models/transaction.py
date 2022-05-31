@@ -8,6 +8,7 @@ class TransactionModel(BaseModel):
     price = db.Column(db.Float(precision=2), nullable=False)
     note = db.Column(db.String(200))
     is_positive = db.Column(db.Boolean, nullable=False)
+    created_date = db.Column(db.Date, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     category_id = db.Column(db.Integer, db.ForeignKey("category.id"))
     wallet_id = db.Column(db.Integer, db.ForeignKey("wallet.id"))

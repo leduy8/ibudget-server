@@ -18,8 +18,8 @@ def get_transactions(params: Dict, user_id: int) -> List[object]:
         transactions = (
             TransactionModel.query.filter_by(user_id=user_id)
             .filter(
-                TransactionModel.updated >= params["from_date"],
-                TransactionModel.updated <= params["to_date"],
+                TransactionModel.created_date >= params["from_date"],
+                TransactionModel.created_date <= params["to_date"],
             )
             .paginate(params["page"], params["items_per_page"], False)
         )
@@ -35,6 +35,7 @@ def create_transaction(data: Dict, user_id: int) -> TransactionModel:
     transaction = TransactionModel(
         price=data["price"],
         is_positive=data["is_positive"],
+        created_date=data["created_date"],
         user_id=user_id,
         wallet_id=data["wallet_id"],
         category_id=data["category_id"],
@@ -54,6 +55,7 @@ def update_transaction(data: Dict, transaction: TransactionModel) -> Transaction
     transaction.is_positive = data["is_positive"]
     transaction.wallet_id = data["wallet_id"]
     transaction.category_id = data["category_id"]
+    transaction.created_date = data["created_date"]
 
     if "note" in data:
         transaction.note = data["note"]
