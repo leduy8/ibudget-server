@@ -28,12 +28,17 @@ def get_transactions(params: Dict, user_id: int) -> List[object]:
             .paginate(params["page"], params["items_per_page"], False)
         )
     elif params["wallet_id"]:
-        transactions = TransactionModel.query.filter_by(user_id=user_id).filter_by(wallet_id=params["wallet_id"]).order_by(desc(TransactionModel.created_date)).paginate(
-            params["page"], params["items_per_page"], False
+        transactions = (
+            TransactionModel.query.filter_by(user_id=user_id)
+            .filter_by(wallet_id=params["wallet_id"])
+            .order_by(desc(TransactionModel.created_date))
+            .paginate(params["page"], params["items_per_page"], False)
         )
     else:
-        transactions = TransactionModel.query.filter_by(user_id=user_id).order_by(desc(TransactionModel.created_date)).paginate(
-            params["page"], params["items_per_page"], False
+        transactions = (
+            TransactionModel.query.filter_by(user_id=user_id)
+            .order_by(desc(TransactionModel.created_date))
+            .paginate(params["page"], params["items_per_page"], False)
         )
 
     return [transactions.items, transactions.total]

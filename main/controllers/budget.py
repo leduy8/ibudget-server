@@ -3,12 +3,12 @@ from flask import jsonify
 from main import app
 from main.commons.decorators import authenticate_user, pass_data
 from main.commons.exceptions import Forbidden, NotFound
-from main.engines import category as category_engine
 from main.engines import budget as budget_engine
+from main.engines import category as category_engine
 from main.engines import wallet as wallet_engine
+from main.schemas.base import PaginationSchema
 from main.schemas.dump.budget import DumpBudgetSchema
 from main.schemas.load.budget import LoadBudgetSchema
-from main.schemas.base import PaginationSchema
 
 
 @app.post("/budgets")
@@ -34,10 +34,7 @@ def get_budgets(data, user):
 
     return jsonify(
         {
-            "budgets": [
-                DumpBudgetSchema().dump(budget)
-                for budget in budgets
-            ],
+            "budgets": [DumpBudgetSchema().dump(budget) for budget in budgets],
             "page": data["page"],
             "items_per_page": data["items_per_page"],
             "total_items": total_items,

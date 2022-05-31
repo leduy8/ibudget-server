@@ -3,13 +3,13 @@ from flask_admin.contrib import sqla
 from werkzeug.exceptions import HTTPException
 
 from main import admin, basic_auth, db
+from main.models.budget import BudgetModel
 from main.models.category import CategoryModel
 from main.models.debtor import DebtorModel
 from main.models.lender import LenderModel
 from main.models.transaction import TransactionModel
 from main.models.user import UserModel
 from main.models.wallet import WalletModel
-from main.models.budget import BudgetModel
 
 
 class AuthException(HTTPException):

@@ -6,8 +6,8 @@ from main import app
 from main.commons.decorators import authenticate_user, pass_data
 from main.commons.exceptions import NotFound
 from main.engines import category as category_engine
-from main.schemas.dump.category import DumpCategorySchema
 from main.schemas.base import PaginationSchema
+from main.schemas.dump.category import DumpCategorySchema
 
 
 @app.get("/categories")

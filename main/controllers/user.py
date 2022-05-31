@@ -4,7 +4,6 @@ from main import app
 from main.commons.decorators import authenticate_user, pass_data
 from main.commons.exceptions import BadRequest
 from main.engines import user as user_engine
-from main.engines import wallet as wallet_engine
 from main.libs.password import gen_salt, generate_password_hash
 from main.schemas.dump.user import DumpUserSchema
 from main.schemas.load.user import (
