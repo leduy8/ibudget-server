@@ -9,6 +9,7 @@ from main.engines import wallet as wallet_engine
 from main.models.transaction import TransactionModel
 from main.schemas.dump.category import DumpCategorySchema
 from main.schemas.dump.transaction import DumpTransactionSchema
+from main.schemas.dump.wallet import DumpWalletSchema
 from main.schemas.load.transaction import LoadTransactionSchema
 from main.schemas.paginate import TransactionPaginationSchema
 
@@ -16,7 +17,9 @@ from main.schemas.paginate import TransactionPaginationSchema
 def get_transaction_data(transaction: TransactionModel):
     data = DumpTransactionSchema().dump(transaction)
     category = category_engine.find_category_by_id(data["category_id"])
+    wallet = wallet_engine.find_wallet_by_id(data["wallet_id"])
     data["category"] = DumpCategorySchema().dump(category)
+    data["wallet"] = DumpWalletSchema().dump(wallet)
     return data
 
 
