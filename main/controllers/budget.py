@@ -6,9 +6,21 @@ from main.commons.exceptions import Forbidden, NotFound
 from main.engines import budget as budget_engine
 from main.engines import category as category_engine
 from main.engines import wallet as wallet_engine
-from main.schemas.base import PaginationSchema
+from main.models.budget import BudgetModel
 from main.schemas.dump.budget import DumpBudgetSchema
+from main.schemas.dump.category import DumpCategorySchema
+from main.schemas.dump.wallet import DumpWalletSchema
 from main.schemas.load.budget import LoadBudgetSchema
+from main.schemas.paginate import BudgetPaginationSchema
+
+
+def get_budget_data(budget: BudgetModel):
+    data = DumpBudgetSchema().dump(budget)
+    category = category_engine.find_category_by_id(data["category_id"])
+    wallet = wallet_engine.find_wallet_by_id(data["wallet_id"])
+    data["category"] = DumpCategorySchema().dump(category)
+    data["wallet"] = DumpWalletSchema().dump(wallet)
+    return data
 
 
 @app.post("/budgets")
@@ -28,13 +40,13 @@ def create_budget(data, user):
 
 @app.get("/budgets")
 @authenticate_user()
-@pass_data(PaginationSchema)
+@pass_data(BudgetPaginationSchema)
 def get_budgets(data, user):
     budgets, total_items = budget_engine.get_budgets(data, user.id)
 
     return jsonify(
         {
-            "budgets": [DumpBudgetSchema().dump(budget) for budget in budgets],
+            "budgets": [get_budget_data(budget) for budget in budgets],
             "page": data["page"],
             "items_per_page": data["items_per_page"],
             "total_items": total_items,

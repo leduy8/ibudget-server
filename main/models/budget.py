@@ -5,6 +5,7 @@ from main.models.base import BaseModel
 class BudgetModel(BaseModel):
     __tablename__ = "budget"
 
+    title = db.Column(db.String(50), nullable=False)
     goal_value = db.Column(db.Float, nullable=False)
     from_date = db.Column(db.Date, nullable=False)
     to_date = db.Column(db.Date, nullable=False)

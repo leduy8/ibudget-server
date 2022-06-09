@@ -5,6 +5,7 @@ from main.schemas.base import BaseSchema
 
 class DumpBudgetSchema(BaseSchema):
     id = fields.Integer()
+    title = fields.String()
     goal_value = fields.Float()
     from_date = fields.Date()
     to_date = fields.Date()

@@ -4,6 +4,7 @@ from main.schemas.base import BaseSchema
 
 
 class LoadBudgetSchema(BaseSchema):
+    title = fields.String(validate=validate.Length(max=50), required=True)
     goal_value = fields.Float(required=True)
     from_date = fields.Date(required=True)
     to_date = fields.Date(required=True)
